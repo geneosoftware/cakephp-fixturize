@@ -27,26 +27,26 @@ class FixturizeFixtureManager extends CakeFixtureManager {
 			CakeLog::error('-> ' . $e->getMessage(), array('fixturize'));
 		}
 
-		CakeLog::debug('Begin fixture import', array('fixturize'));
+		// CakeLog::debug('Begin fixture import', array('fixturize'));
 
 		$nested = $this->_db->useNestedTransactions;
 		$this->_db->useNestedTransactions = false;
 		$this->_db->begin();
 		foreach ($fixtures as $f) {
-			CakeLog::debug(sprintf('Working on %s', $f));
+			// CakeLog::debug(sprintf('Working on %s', $f));
 			if (empty($this->_loaded[$f])) {
 				CakeLog::warning('-> Cannot find it in the loaded array', array('fixturize'));
 				continue;
 			}
 
 			$fixture = $this->_loaded[$f];
-			CakeLog::debug(sprintf('-> Found fixture: %s', get_class($fixture)), array('fixturize'));
+			// CakeLog::debug(sprintf('-> Found fixture: %s', get_class($fixture)), array('fixturize'));
 
 			$this->_setupTable($fixture, $this->_db, true);
-			CakeLog::debug('-> Created table "OK"', array('fixture'));
+			// CakeLog::debug('-> Created table "OK"', array('fixture'));
 
 			if ($fixture->insert($this->_db)) {
-				CakeLog::debug('-> Inserted fixture data "OK"', array('fixturize'));
+				// CakeLog::debug('-> Inserted fixture data "OK"', array('fixturize'));
 			} else {
 				CakeLog::error('-> Inserted fixture data "ERROR"', array('fixturize'));
 			}
@@ -54,7 +54,7 @@ class FixturizeFixtureManager extends CakeFixtureManager {
 
 		$this->_db->commit();
 		$this->_useNestedTransactions = $nested;
-		CakeLog::debug('Done!', array('fixturize'));
+		// CakeLog::debug('Done!', array('fixturize'));
 	}
 
 /**
